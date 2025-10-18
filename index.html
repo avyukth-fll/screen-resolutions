@@ -11,8 +11,9 @@
         <h1>Screen Resolution Checker</h1>
         <div class="resolution-info">
             <ul>
-                <li>Screen Resolution: <span id="screenRes">--</span></li>
                 <li>Window Inner Size: <span id="windowSize">--</span></li>
+                <li>Window orientation: <span id="windowOrient">--</span> <br/><br/> <br/></li>
+                <li>Screen Resolution: <span id="screenRes">--</span></li>
                 <li>Available Screen Space: <span id="availSpace">--</span></li>
             </ul>
         </div>
@@ -23,11 +24,25 @@
             document.getElementById('screenRes').textContent = 
                 `${screen.width} × ${screen.height} pixels`;
             
+            var windowHeight = window.innerHeight;
+            var windowWidth = window.innerWidth;
             document.getElementById('windowSize').textContent = 
-                `${window.innerWidth} × ${window.innerHeight} pixels`;
+                `${windowWidth} × ${windowHeight} pixels`;
             
             document.getElementById('availSpace').textContent = 
                 `${screen.availWidth} × ${screen.availHeight} pixels`;
+
+            var orientation = `landscape`;
+
+            if (windowHeight == windowWidth) {
+                orientation = "square";
+            } else if (windowHeight > windowWidth) {
+                orientation = "portrait";
+            }
+            
+            document.getElementById('windowOrient').textContent = 
+                `${orientation}`;
+
         }
 
         window.addEventListener('load', updateScreenInfo);
