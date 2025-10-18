@@ -1,14 +1,37 @@
-    <head>
-        <link rel="stylesheet" href="screen-res.css">
-    </head>
-    <script src="screen-res.js"></script>
-    <body class="body">
-        <div class="root">
-            <div class="screen">
-                Screen Width: <span id="s_width">--</span> <br />
-                Screen Height: <span id="s_height">--</span>
-            </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Resolution Checker</title>
+    <link rel="stylesheet" href="screen-res.css">
+</head>
+<body>
+    <main>
+        <h1>Screen Resolution Checker</h1>
+        <div class="resolution-info">
+            <ul>
+                <li>Screen Resolution: <span id="screenRes">--</span></li>
+                <li>Window Inner Size: <span id="windowSize">--</span></li>
+                <li>Available Screen Space: <span id="availSpace">--</span></li>
+            </ul>
         </div>
-    </body>
+    </main>
 
+    <script>
+        function updateScreenInfo() {
+            document.getElementById('screenRes').textContent = 
+                `${screen.width} × ${screen.height} pixels`;
+            
+            document.getElementById('windowSize').textContent = 
+                `${window.innerWidth} × ${window.innerHeight} pixels`;
+            
+            document.getElementById('availSpace').textContent = 
+                `${screen.availWidth} × ${screen.availHeight} pixels`;
+        }
+
+        window.addEventListener('load', updateScreenInfo);
+        window.addEventListener('resize', updateScreenInfo);
+    </script>
+</body>
 </html>
