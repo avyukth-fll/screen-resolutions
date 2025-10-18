@@ -5,48 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Screen Resolution Checker</title>
     <link rel="stylesheet" href="screen-res.css">
+    <script src="screen-res.js" defer></script>
 </head>
 <body>
     <main>
         <h1>Screen Resolution Checker</h1>
         <div class="resolution-info">
-            <ul>
-                <li>Window Inner Size: <span id="windowSize">--</span></li>
-                <li>Window orientation: <span id="windowOrient">--</span> <br/><br/> <br/></li>
-                <li>Screen Resolution: <span id="screenRes">--</span></li>
-                <li>Available Screen Space: <span id="availSpace">--</span></li>
-            </ul>
+            <table>
+                <tr>
+                    <td>Screen Resolution:</td>
+                    <td><span id="screenRes">--</span></td>
+                </tr>
+                <tr>
+                    <td>Available Screen Space:</td>
+                    <td><span id="availSpace">--</span></td>
+                </tr>
+                <tr>
+                    <td>Window Inner Size:</td>
+                    <td><span id="windowSize">--</span></td>
+                </tr>
+                <tr>
+                    <td>Window orientation:</td>
+                    <td><span id="windowOrient">--</span></td>
+                </tr>
+            </table>
         </div>
     </main>
-
-    <script>
-        function updateScreenInfo() {
-            document.getElementById('screenRes').textContent = 
-                `${screen.width} × ${screen.height} pixels`;
-            
-            var windowHeight = window.innerHeight;
-            var windowWidth = window.innerWidth;
-            document.getElementById('windowSize').textContent = 
-                `${windowWidth} × ${windowHeight} pixels`;
-            
-            document.getElementById('availSpace').textContent = 
-                `${screen.availWidth} × ${screen.availHeight} pixels`;
-
-            var orientation = `landscape`;
-
-            if (windowHeight == windowWidth) {
-                orientation = "square";
-            } else if (windowHeight > windowWidth) {
-                orientation = "portrait";
-            }
-            
-            document.getElementById('windowOrient').textContent = 
-                `${orientation}`;
-
-        }
-
-        window.addEventListener('load', updateScreenInfo);
-        window.addEventListener('resize', updateScreenInfo);
-    </script>
 </body>
 </html>

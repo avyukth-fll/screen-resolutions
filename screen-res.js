@@ -1,12 +1,27 @@
+function updateScreenInfo() {
+    document.getElementById('screenRes').textContent = 
+        `${screen.width} × ${screen.height} pixels`;
+    
+    var windowHeight = window.innerHeight;
+    var windowWidth = window.innerWidth;
+    document.getElementById('windowSize').textContent = 
+        `${windowWidth} × ${windowHeight} pixels`;
+    
+    document.getElementById('availSpace').textContent = 
+        `${screen.availWidth} × ${screen.availHeight} pixels`;
 
-function updateResolution() {
-  var spanWidth = document.getElementById("s_width");
-  var spanHeight = document.getElementById("s_height");
+    var orientation = `landscape`;
 
-  spanWidth.innerText = window.innerWidth;
-  spanHeight.innerText = window.innerHeight;
+    if (windowHeight == windowWidth) {
+        orientation = "square";
+    } else if (windowHeight > windowWidth) {
+        orientation = "portrait";
+    }
+    
+    document.getElementById('windowOrient').textContent = 
+        `${orientation}`;
+
 }
 
-window.onresize = updateResolution;
-
-window.onload = function () { updateResolution(); };
+window.addEventListener('load', updateScreenInfo);
+window.addEventListener('resize', updateScreenInfo);
