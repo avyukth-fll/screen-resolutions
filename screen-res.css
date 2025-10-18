@@ -4,6 +4,11 @@ body {
   font-family: 'Tahoma', sans-serif;
 }
 
+td {
+  padding-right: 1.5em;
+  border-color: red;
+}
+
 .resolution-info 
 {
   font-size: 1em;
