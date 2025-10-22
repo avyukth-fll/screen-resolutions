@@ -44,7 +44,32 @@
             
             document.getElementById('windowOrient').textContent = 
                 `${orientation}`;
+            
+            var windowHeight = window.innerHeight;
+            var windowWidth = window.innerWidth;
+            function gcd(a, b) {
+              if (b === 0) {
+                return a;
+              } else {
+                return gcd(b, a % b);
+              }
+            }
 
+        
+            function simplifyFraction(numerator, denominator) {
+        
+              const commonDivisor = gcd(numerator, denominator);
+              const simplifiedNumerator = numerator / commonDivisor;
+              const simplifiedDenominator = denominator / commonDivisor;
+        
+              return {
+                numerator: simplifiedNumerator,
+                denominator: simplifiedDenominator
+              };
+            }      
+            
+            document.getElementById('windowSize').textContent = 
+                `ratio of ${windowWidth} : ${windowHeight}`
         }
 
         window.addEventListener('load', updateScreenInfo);
@@ -73,6 +98,10 @@
                     <td>Window Orientation</td>
                     <td><span id="windowOrient">--</span></td>
                 </tr>
+                <tr>
+                    <td>Window pixel ratio</td>
+                    <td><span id="windowOrient">--</span></td>
+                </tr>                
             </table>
         </div>
         <footer>
