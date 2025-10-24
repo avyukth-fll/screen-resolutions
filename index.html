@@ -68,8 +68,10 @@
                 window.devicePixelRatio.toFixed(2);
         }
 
-        window.addEventListener('load', updateScreenInfo);
-        window.addEventListener('resize', updateScreenInfo);
+        window.addEventListener('load', () => {
+            updateScreenInfo();
+            setInterval(updateScreenInfo, 100);
+        });
     </script>
 </head>
 <body>
