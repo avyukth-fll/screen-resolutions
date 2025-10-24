@@ -13,68 +13,63 @@
 
         td {
             padding-right: 1.5em;
-            border-color: red;
         }
 
-        .resolution-info 
-        {
+        .resolution-info {
             font-size: 1em;
         }
     </style>
     <script defer>
         function updateScreenInfo() {
-            document.getElementById('screenRes').textContent = 
-                `${screen.width} × ${screen.height} pixels`;
-            
-            var windowHeight = window.innerHeight;
-            var windowWidth = window.innerWidth;
-            document.getElementById('windowSize').textContent = 
-                `${windowWidth} × ${windowHeight} pixels`;
-            
-            document.getElementById('availSpace').textContent = 
-                `${screen.availWidth} × ${screen.availHeight} pixels`;
+            function gcd(a, b) {
+                return b === 0 ? a : gcd(b, a % b);
+            }
 
-            var orientation = `landscape`;
+            function simplifyFraction(numerator, denominator) {
+                const commonDivisor = gcd(numerator, denominator);
+                return {
+                    numerator: numerator / commonDivisor,
+                    denominator: denominator / commonDivisor
+                };
+            }
 
-            if (windowHeight == windowWidth) {
+            const screenW = screen.width;
+            const screenH = screen.height;
+            document.getElementById('screenRes').textContent =
+                `${screenW} × ${screenH} pixels`;
+
+            const screenRatio = simplifyFraction(screenW, screenH);
+            document.getElementById('screenRatio').textContent =
+                `${screenRatio.numerator} : ${screenRatio.denominator}`;
+
+            const windowW = window.innerWidth;
+            const windowH = window.innerHeight;
+            document.getElementById('windowSize').textContent =
+                `${windowW} × ${windowH} pixels`;
+
+            const windowRatio = simplifyFraction(windowW, windowH);
+            document.getElementById('windowRatio').textContent =
+                `${windowRatio.numerator} : ${windowRatio.denominator}`;
+
+            const availW = screen.availWidth;
+            const availH = screen.availHeight;
+            document.getElementById('availSpace').textContent =
+                `${availW} × ${availH} pixels`;
+
+            let orientation = "landscape";
+            if (windowW === windowH) {
                 orientation = "square";
-            } else if (windowHeight > windowWidth) {
+            } else if (windowH > windowW) {
                 orientation = "portrait";
             }
-            
-            document.getElementById('windowOrient').textContent = 
-                `${orientation}`;
-            
-            var windowHeight = window.innerHeight;
-            var windowWidth = window.innerWidth;
-            function gcd(a, b) {
-              if (b === 0) {
-                return a;
-              } else {
-                return gcd(b, a % b);
-              }
-            }
+            document.getElementById('windowOrient').textContent = orientation;
 
-        
-            function simplifyFraction(numerator, denominator) {
-        
-              const commonDivisor = gcd(numerator, denominator);
-              const simplifiedNumerator = numerator / commonDivisor;
-              const simplifiedDenominator = denominator / commonDivisor;
-        
-              return {
-                numerator: simplifiedNumerator,
-                denominator: simplifiedDenominator
-              };
-            }      
-            
-            document.getElementById('windowSize').textContent = 
-                `ratio of ${windowWidth} : ${windowHeight}`
+            document.getElementById('pixelRatio').textContent =
+                window.devicePixelRatio.toFixed(2);
         }
 
         window.addEventListener('load', updateScreenInfo);
         window.addEventListener('resize', updateScreenInfo);
-
     </script>
 </head>
 <body>
@@ -87,6 +82,10 @@
                     <td><span id="screenRes">--</span></td>
                 </tr>
                 <tr>
+                    <td>Screen Aspect Ratio</td>
+                    <td><span id="screenRatio">--</span></td>
+                </tr>
+                <tr>
                     <td>Available Screen Space</td>
                     <td><span id="availSpace">--</span></td>
                 </tr>
@@ -95,17 +94,23 @@
                     <td><span id="windowSize">--</span></td>
                 </tr>
                 <tr>
+                    <td>Window Aspect Ratio</td>
+                    <td><span id="windowRatio">--</span></td>
+                </tr>
+                <tr>
                     <td>Window Orientation</td>
                     <td><span id="windowOrient">--</span></td>
                 </tr>
                 <tr>
-                    <td>Window pixel ratio</td>
-                    <td><span id="windowOrient">--</span></td>
-                </tr>                
+                    <td>Device Pixel Ratio</td>
+                    <td><span id="pixelRatio">--</span></td>
+                </tr>
             </table>
         </div>
         <footer>
-            <p>Repo at <a href='https://github.com/k-a-rthik/screen-resolutions'>k-a-rthik/screen-resolutions</a> for your review and feedback/suggestions.</p>
+            <p>Repo at <a href='https://github.com/k-a-rthik/screen-resolutions'>
+                k-a-rthik/screen-resolutions</a> for your review and feedback/suggestions.
+            </p>
         </footer>
     </main>
 </body>
